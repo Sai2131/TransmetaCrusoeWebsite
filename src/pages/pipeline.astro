@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout id="pipeline" title="Pipeline">
+
+  <h1>Pipeline</h1>
+
+  <h2>Temp</h2>
+
+  <p>
+    Unused issue slots can be filled with NOPs. The important point for the pipeline is that the
+    molecule already describes a statically scheduled group of native operations; the hardware
+    does not dynamically perform a conventional out-of-order scheduling step.
+  </p>
+
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Operation</th><th>Pipeline</th><th>What to remember</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Integer / ALU</td>
+          <td><code>Fetch0 → Fetch1 → Decode → Register → Execute → Write → Commit</code></td>
+          <td>Short integer execution path with commit at the end.</td>
+        </tr>
+        <tr>
+          <td>Load / Store</td>
+          <td><code>Fetch0 → Fetch1 → Register → Mem0 → Mem1 → Write → Commit</code></td>
+          <td>Memory stages initiate/complete the cache access and associated checks.</td>
+        </tr>
+        <tr>
+          <td>Floating point</td>
+          <td><code>Fetch0 → Fetch1 → Register → A → B → C → D → Write → Commit</code></td>
+          <td>Longer pipeline than simple integer execution.</td>
+        </tr>
+        <tr>
+          <td>Branch</td>
+          <td><code>Predict → Wait → Wait → Wait → Verify</code></td>
+          <td>Follow a predicted path while the branch resolves, then verify it.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</Layout>

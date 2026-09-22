@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'A technical dossier on the Transmeta Crusoe processor.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}Transmeta Crusoe Dossier</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="page-grid">
+        <aside class="sidebar">
+          <p class="eyebrow">Dossier</p>
+          <h2>Inside Crusoe</h2>
+          <ul>
+            <li><a href="/">Overview</a></li>
+            <li><a href="/isa/">ISA</a></li>
+            <li><a href="/pipeline/">Pipeline</a></li>
+            <li><a href="/registerfile/">Register File</a></li>
+            <li><a href="/preciseexceptions/">Precise Exceptions</a></li>
+            <li><a href="/memory/">Memory</a></li>
+            <li><a href="/performancelimitations/">Performance & Limitations</a></li>
+            <li><a href="/sources/">Sources</a></li>
+          </ul>
+        </aside>
+
+        <main class="content">
+          <slot />
+        </main>
+      </div>
+
+    </div>
+  </body>
+</html>
