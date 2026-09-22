@@ -29,6 +29,13 @@ a { color: inherit; }
   backdrop-filter: blur(8px);
 }
 
+.figure {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+}
+
 .brand {
   font-weight: 800;
   letter-spacing: -0.02em;

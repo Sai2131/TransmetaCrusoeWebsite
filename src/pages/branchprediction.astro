@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout id="branchprediction" title="Branch Prediction">
+
+  <h1>Branch Prediction</h1>
+
+
+  <h2>Branch Prediction in CMS through dynamic profiling</h2>
+
+  <p>
+    The CMS isn't just a 1 to 1 intepreter but instead monitors the behavior of the x86 code.
+    Over time, the CMS collects runtime information which includes the frequency of a branch being taken.
+    It uses this branch information (along with other metrics) to create a native translation block which by default, assumes
+    the branch being taken or not taken. Public documentation does not specify the detailed algorithm behind it.
+  </p>
+
+   <img
+    src="/images/Prediction.png"
+    alt="Transmeta Crusoe pipeline showing the ALU, load/store, floating-point, and branch pipelines"
+    class="figure"
+  />
+
+<p>
+    The CMS goes further and builds these optimized native translation blocks for entire common pathways for code.
+    This is why in bechmarks, the Crusoe performs better after running a program once.
+  </p>
+
+
+<h2>Clever optimizations</h2>
+
+  <p>
+    Although not the same as branch prediction, CMS can also do clever optimizations such as removing a branch when
+    both sides of the branch are cheap to compute. 
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre class="code-example"><code>if (condition)
+    y = A;
+else
+    y = B;</code></pre>
+
+  <p>
+    Both sides of the condition are computed, which allows the CMS to just select the correct
+    value later. This also gives the CMS more oppertunities to fill the molecules, avoiding NOPs.
+  </p>
+
+
+  <h2>Branching hardware</h2>
+
+  <p>Since all the prediction is done though software, the branch unit in the pipeline is
+  used to verify that the prediction was indeed correct.</p>
+
+
+
+</Layout>

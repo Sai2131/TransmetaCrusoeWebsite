@@ -6,44 +6,76 @@ import Layout from '../layouts/Layout.astro';
 
   <h1>Pipeline</h1>
 
-  <h2>Temp</h2>
+  <p class="lead">
+    Since the Crusoe already receives native VLIW molecules that have already been translated
+    and scheduled by the CMS, it makes the pipeline hardware fairly simple.
+  </p>
 
   <p>
-    Unused issue slots can be filled with NOPs. The important point for the pipeline is that the
-    molecule already describes a statically scheduled group of native operations; the hardware
-    does not dynamically perform a conventional out-of-order scheduling step.
+    For example, when a molecule enters the front of the pipeline its atoms are easily routed to the
+    appropriate execution unit because the CMS already did the work. 
+    In a conventional x86 processor, the hardware has to dynamically determine this making
+    the hardware much more complex.
   </p>
 
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Operation</th><th>Pipeline</th><th>What to remember</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Integer / ALU</td>
-          <td><code>Fetch0 → Fetch1 → Decode → Register → Execute → Write → Commit</code></td>
-          <td>Short integer execution path with commit at the end.</td>
-        </tr>
-        <tr>
-          <td>Load / Store</td>
-          <td><code>Fetch0 → Fetch1 → Register → Mem0 → Mem1 → Write → Commit</code></td>
-          <td>Memory stages initiate/complete the cache access and associated checks.</td>
-        </tr>
-        <tr>
-          <td>Floating point</td>
-          <td><code>Fetch0 → Fetch1 → Register → A → B → C → D → Write → Commit</code></td>
-          <td>Longer pipeline than simple integer execution.</td>
-        </tr>
-        <tr>
-          <td>Branch</td>
-          <td><code>Predict → Wait → Wait → Wait → Verify</code></td>
-          <td>Follow a predicted path while the branch resolves, then verify it.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h4>
+    The pipeline contains 5 total execution units:
+  </h4>
+
+  <ul>
+  <li>2x ALU</li>
+  <li>1x Load/Store</li>
+  <li>1x FP</li>
+  <li>1x Branch</li>
+  </ul>
+
+  <p>
+    The reason there are only 4 atoms per molecule if we have 5 execution units is because 
+    the type of operation that each slot in the molecule is fixed to a certian group of operations.
+    One of the atoms is a "Compute" atom which means it can either be another ALU or FP operation.
+  </p>
+
+
+  <img
+    src="/images/crusoe-pipeline.png"
+    alt="Transmeta Crusoe pipeline showing the ALU, load/store, floating-point, and branch pipelines"
+    class="figure"
+  />
+
+
+
+
+  <h3>Fetch0, Fetch1, Decode</h3>
+
+  <p>
+    Although these stages are drawn for each type of unit, they are mostly shared 
+    beforehand with 
+    much
+    of the work being done by the way 
+    the molecule is formatted. After these three stages, each unit enters its own execution path.
+  </p>
+
+  <h3>Commit</h3>
+
+  <p>
+    This is the stage where an operation has the option to commit which will be explained in further
+    detail in the Precise Exceptions section. In short this is where, at the end of a translation unit
+    the work would be commited into the shadow registers as safe "checkpoint".
+  </p>
+
+
+  <h2>Multiple Molecules in the pipeline</h2>
+
+  <p>
+    Different operations have different pipeline latencies, so CMS 
+    schedules dependent operations to occur when their operands are 
+    expected to be available. Crusoe has very few hardware interlocks. 
+    Unpredictably long operations, such as loads that miss in the cache, 
+    are handled automatically by the hardware; Transmeta does not describe
+     this mechanism in much detail.
+
+  </p>
 
 
 </Layout>

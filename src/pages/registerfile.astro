@@ -2,15 +2,62 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout id="registerfile" title="registerfile">
+<Layout id="registerfile" title="Register File">
 
-  <h1>registerfile</h1>
+  <h1>Register File</h1>
 
-  <h2>Temp</h2>
+  <p class="lead">
+    Crusoe uses a much larger native register file than the x86 architecture
+    exposes to software.
+  </p>
+
+  <ul>
+    <li><strong>64</strong> 32-bit general-purpose registers</li>
+    <li><strong>32</strong> 80-bit floating-point registers</li>
+    <li><strong>48</strong> shadowed 32-bit general-purpose registers</li>
+    <li><strong>16</strong> shadowed 80-bit floating-point registers</li>
+  </ul>
 
   <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+    The large native register file is used for three main purposes:
+  </p>
+
+
+  <h2>x86 Architectural State</h2>
+
+  <p>
+    CMS maps the x86 architectural state onto native registers. The x86
+    program still sees the normal x86 register model while the processor
+    internally stores those values in its native register file.
+  </p>
+
+  <p>
+    For example, Transmeta's native conventions map registers such as 
+    r0 and r1 to
+    x86 state such as EAX and ECX.
+  </p>
+
+
+  <h2>CMS State</h2>
+
+  <p>
+    Some native registers are used by CMS itself. CMS needs registers for its
+    internal runtime state as well as temporary values used while executing
+    translated code.
+  </p>
+
+  <h2>Software Register Renaming</h2>
+
+  <p>
+    CMS can use the additional native registers to assign different values to
+    different native registers during translation.
+  </p>
+
+  <p>
+    For example, two different values that would both be represented by EAX at different points in the x86 program can be kept in
+    separate native registers.This gives CMS more
+    freedom when scheduling native operations and by reducing
+    dependencies.
   </p>
 
 </Layout>
