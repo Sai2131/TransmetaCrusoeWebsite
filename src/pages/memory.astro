@@ -2,15 +2,68 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout id="memory" title="memory">
+<Layout id="Memory" title="Memory">
 
-  <h1>memory</h1>
+  <h1>Memory</h1>
 
-  <h2>Temp</h2>
+  <h2>Caching</h2>
 
-  <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-  </p>
+  <ol>
+    <li>
+      <p>
+        Memory Isolation: The translation cache and Code Morphing software reside in a dedicated memory region completely isolated from x86 code.
+      </p>
+    </li>
+    <li>
+      <p>
+        Initialization & Sizing: Code Morphing software copies itself from ROM into DRAM at startup for faster execution. The cache size can be configured at boot time or dynamically adjusted by the OS.
+      </p>
+    </li>
+    <li>
+      <p>
+        Locality of Reference: Capitalizes on high code repetition rates in real-world workloads. Once an x86 block is translated, subsequent executions hit in the cache and run at full VLIW hardware speed without re-translation.
+      </p>
+    </li>
+  </ol>
+
+  <h2>Alias Hardware</h2>
+
+  <ol>
+    <li>
+      <p>
+        Load-and-Protect: When the translator speculatively schedules a load before a store, it converts it to a load-and-protect instruction that logs the target memory address and region size.
+      </p>
+    </li>
+    <li>
+      <p>
+        Store-Under-Alias-Mask: Subsequent stores check against protected address ranges using alias-mask hardware.
+      </p>
+    </li>
+    <li>
+      <p>
+        Exception & Recovery: If a store overwrites speculatively loaded data, the CPU triggers a hardware exception, allowing the runtime software to rollback and correct execution safely.
+      </p>
+    </li>
+  </ol>
+
+  <h2>Coping with self-modifying code</h2>
+
+    <ol>
+    <li>
+      <p>
+        The Challenge: x86 instructions in memory may be overwritten during process loading or by self-modifying code, risking stale translation execution.
+      </p>
+    </li>
+    <li>
+      <p>
+        Page Write-Protection: When a block is translated, the underlying MMU sets a hidden "translated" bit on the corresponding x86 memory page, marking it as write-protected.
+      </p>
+    </li>
+    <li>
+      <p>
+        Invalidation & Adaptive Strategy: Attempts to write to a protected page trigger an alert to invalidate affected translations. The runtime system adaptively employs more refined invalidation strategies as it learns the application's execution patterns.
+      </p>
+    </li>
+  </ol>
 
 </Layout>
