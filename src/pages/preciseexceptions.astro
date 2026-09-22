@@ -80,4 +80,20 @@ import Layout from '../layouts/Layout.astro';
     exception.
   </p>
 
+  <h2>Memory Consistency Model</h2>
+
+  <p>
+    x86 follows a Total Store Order (TSO) memory model. In particular, a load
+    may be reordered ahead of an earlier store when they access different
+    memory locations.
+  </p>
+
+  <p>
+    Crusoe's documentation does not define a separate memory consistency model.
+    But because Crusoe is x86 externally, its visible memory behavior must
+    preserve the TSO. Internally however, CMS can give native translations
+    more freedom to reorder memory operations. Crusoe uses hardware alias checking, to detect when a speculative memory reordering is
+    invalid and uses the metioned rollback mechanism.
+  </p>
+
 </Layout>

@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout id="cache" title="Caching">
+
+  <h1>Memory Higharchy</h1>
+
+    <img
+    src="/images/cache.png"
+    class="figure"
+  />
+
+  <p>
+    In the TM5400, the cache hierarchy consists of a separate L1 instruction
+    cache, L1 data cache, and a larger L2 write back cache.
+  </p>
+
+  <ul>
+    <li>L1 Instruction Cache: Stores recently fetched molecules.</li>
+    <li>L1 Data Cache: Stores data loaded and stored by code.</li>
+    <li>L2 Cache: Larger writeback cache between the L1 caches and DRAM.</li>
+  </ul>
+
+  <p>
+    Generated translations are stored in a reserved region of normal DRAM called
+    the Translation Cache. This is separate from the hardware L1 and L2 caches.
+  </p>
+
+  <p>
+    Stores also pass through a gated store buffer before entering
+    the normal memory system. More about this in the Precise Exceptions page.
+  </p>
+
+</Layout>
