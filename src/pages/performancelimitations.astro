@@ -3,14 +3,63 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout id="performancelimitations" title="performancelimitations">
+  <h1>Performance Limitations</h1>
 
-  <h1>performancelimitations</h1>
-
-  <h2>Temp</h2>
-
-  <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+<p>
+    The Crusoe processor has a lot of limitations which can be seen from the
+    references. Some of the key limitations are outlined as follows:
   </p>
 
+  <ol>
+    <li>
+      <p>
+        The Crusoe processor was slow, especially with floating point
+        instructions. It could only process one floating point instruction at a time. It
+        has about 6 times slower execution time for floating point
+        instructions than C3 Nehemiah on the floating-point multimedia
+        benchmark.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        Though VLIW molecules can contain up to 4 atoms, it is not always
+        possible to find 4 atoms to make a molecule. At some instances, only
+        one atom executes per cycle, affecting the IPC.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        There is a tradeoff between power and clock frequency. Since the
+        Crusoe processor was designed with low power in mind, it can only
+        reach a maximum of 1 GHz clock frequency.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        The L2 cache, despite being large, is not large enough to store the
+        Code Morphing Software and the translated code. This leads to cache
+        thrashing.
+      </p>
+    </li>
+
+    <li>
+      <p>
+	The processor has about 16 MB of space reserved for the translation
+    	cache. However, when a large program (with sizes typical for
+    	real-world applications) is encountered, there is a huge translation
+    	penalty because the translation cache cannot hold all of the translated
+    	code.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        As outlined in the Vans Hardware article in the references, the
+        processor also performs poorly on most of the benchmarks.
+      </p>
+    </li>
+  </ol>
 </Layout>
