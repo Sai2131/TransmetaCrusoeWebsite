@@ -2,15 +2,82 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout id="preciseexceptions" title="preciseexceptions">
+<Layout id="preciseexceptions" title="Precise Exceptions">
 
-  <h1>preciseexceptions</h1>
+  <h1>Precise Exceptions</h1>
 
-  <h2>Temp</h2>
+  <p class="lead">
+    The CMS translation of x86 into native translated blocks makes several assumptions and risks.
+    This leads to a wide range of exceptions that needs to be dealt with.
+  </p>
+
+
+  <h2>Risks of Translation</h2>
 
   <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+    CMS can make assumptions about the code it translates and execute operations
+    in a different order from the original x86 program. These assumptions can
+    sometimes fail or produce exceptions during native execution.
+  </p>
+
+  <p>
+    Crusoe uses shadow registers + gated buffers to commit and rollback
+    so that the processor can return to a consistent x86 state when this happens.
+  </p>
+
+
+  <h2>Shadow Registers</h2>
+
+  <p>
+    Crusoe keeps working registers for the current native
+    execution state and shadow registers for the most recently
+    committed x86 state.
+  </p>
+
+  <p>
+    After a translation completes successfully, CMS executes a
+    commit. This copies the working registers into
+    their corresponding shadow registers, creating a new checkpoint.
+  </p>
+
+
+  <h2>Gated Store Buffer</h2>
+
+  <p>
+    Stores from a translation are held in a gated store buffer
+    instead of being released immediately to the memory system.
+  </p>
+
+  <p>
+    When the translation commits, the stores are released from the buffer into
+    the normal memory hierarchy. If the translation is rolled back, stores that
+    have not yet been committed can be discarded.
+  </p>
+
+
+  <h2>Common ways rollsbacks happen</h2>
+
+  <h3>1. Page Fault</h3>
+
+  <p>
+    The most common is a page fault. Crusoe can roll back to the previous committed state so that CMS
+    can handle the fault according to the original x86 semantics.
+  </p>
+
+  <h3>2. Translation Assumption Fails</h3>
+
+  <p>
+    CMS can make speculative assumptions when creating native code. If one
+    fails, Crusoe rolls back to the last committed state. CMS then usually
+    interprets the corresponding x86 instructions in their original program
+    order.
+  </p>
+
+  <p>
+    If the interpreter encounters the fault again, it can be deduced that this exception would occur in x86 program order too so CMS invokes the x86 exception
+    handling procedure. If the interpreter does not encounter the fault, CMS
+    treats it as a speculative translation failure rather than an actual x86
+    exception.
   </p>
 
 </Layout>
