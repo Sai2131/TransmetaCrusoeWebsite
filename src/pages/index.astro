@@ -5,8 +5,36 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Home">
   <p class="eyebrow">Computer Architecture Dossier</p>
   <h1>Transmeta Crusoe</h1>
+  <h2>Feature</h2>
   <p class="lede">
-    Temp
+    TempThe Crusoe processors, an x86-compatible family of solutions that combines strong performance with remarkably low power consumption.
   </p>
+ <p class="lede">
+    The Crusoe processor solutions consist of a hardware engine logically surrounded by a software layer.
+  </p>
+  
+   <h2>Structure</h2>
+  <ol>
+    <li>
+      <p>
+        VLIW:The Crusoe processor features an in-order VLIW hardware engine containing two integer units, a floating-point unit, a load/store memory unit, and a branch unit. Its long instruction words, called molecules (64 or 128 bits long), contain up to four parallel RISC-like instructions, called atoms, which are executed simultaneously without requiring complex out-of-order execution hardware. The structural format of each molecule directly maps its atom slots to the corresponding functional units, significantly simplifying the decode and dispatch logic, while the translator densely packs molecules with atoms to maintain maximum processor throughput.
+      </p>
+    </li>
+    <li>
+      <p>
+        Code Morphing software(CMS): The Transmeta Crusoe processor introduces a dynamic hardware-software hybrid architecture consisting of a native, low-power VLIW engine paired with a Code Morphing software layer. Operating on conventional CMOS fabrication, the underlying VLIW CPU executes up to four operations per cycle using an instruction set optimized purely for speed and energy efficiency rather than x86 compatibility. The surrounding Code Morphing software dynamically translates x86 instructions into native VLIW operations at runtime with dedicated CPU hardware support, allowing legacy x86 applications to run seamlessly while enabling hardware-software co-design. Decoupling the physical silicon from the x86 instruction set expands the microprocessor design space, accelerates time-to-market through parallel software and hardware development, allows independent software updates, and gives hardware designers the freedom to evolve underlying CPU microarchitectures without breaking legacy software compatibility.
+      </p>
+    </li>
+    <li>
+      <p>
+        Shadowed Registers: The Crusoe processor maintains precise x86 state during dynamic translation through a shadowed register architecture, where each x86 register exists as both a working copy and a shadow copy. During execution, normal VLIW atoms only modify the working registers; once a translated block completes without errors, a dedicated commit operation batch-copies working state to the shadow registers to finalize the progress. If an x86-level exception occurs mid-block, a rollback operation immediately restores the shadow register values from the previous successful commit, discarding any speculatively executed state, after which the Code Morphing software conservatively re-executes the x86 instructions in strict program order to isolate the precise exception location.
+      </p>
+    </li>
+    <li>
+      <p>
+        Longrun Power Management: Beyond ensuring x86 compatibility, Code Morphing software enables Crusoe-specific features like LongRun™ power management on models such as the TM5400, which optimizes energy consumption far more effectively than traditional CPU duty-cycle throttling. Rather than rapidly cycling the processor between full speed and powered-off states—a method prone to perceptible user glitches like dropped video frames—LongRun continuously monitors system demand and dynamically adjusts the clock frequency on the fly without OS reboots or RAM suspend delays. This seamless, real-time frequency scaling precisely matches power usage to workload requirements without introducing user-noticeable lag.
+      </p>
+    </li>
+  </ol>
 
 </Layout>
