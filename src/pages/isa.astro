@@ -5,42 +5,48 @@ import Layout from '../layouts/Layout.astro';
 <Layout id="isa" title="ISA">
 
   <h1>ISA</h1>
-
-  <h2>Temp</h2>
+<p>
+    The most interesting part of the ISA is the
+    <strong> Code Morphing Software (CMS)</strong>. CMS takes
+    <strong> x86-compatible instructions</strong> and converts them into
+    <strong> Very Long Instruction Word (VLIW)</strong> instructions that are
+    compatible with the native hardware.
+  </p>
 
   <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+    The advantage of this approach is that the VLIW engine can be modified
+    with only minor changes to the ISA. The processor can also remain
+    compatible with newer versions of the x86 instruction set if the
+    Code Morphing Software is updated.
   </p>
 
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+  <p>
+    <strong>Atoms</strong> are essentially single instructions in the source
+    program, while a <strong>molecule</strong> is a combination of multiple
+    instructions.
   </p>
 
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+  <p>
+    The Code Morphing Software decides which atoms can be grouped together
+    to form a <strong>VLIW instruction</strong> that can then be executed by
+    the native hardware.
   </p>
 
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+  <p>
+    The x86 instructions are read and interpreted in their original order,
+    but once they are translated, independent operations can be scheduled
+    and executed in parallel or in a different order when it is safe to do
+    so.
   </p>
 
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-  </p>
-
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-  </p>
-
-    <p>
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
-    Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp Temp 
+  <p>
+    The Code Morphing Software supports different execution modes for
+    x86-compatible instructions, including
+    <strong> interpretation</strong>,
+    <strong> interpretation with code generation</strong>, and
+    <strong> optimization</strong>. The mode of execution is determined using
+    instrumentation code. The Code Morphing Software also performs
+    <strong> register renaming</strong> while translating the code.
   </p>
 
 </Layout>
